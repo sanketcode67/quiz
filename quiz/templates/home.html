@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+  <p><a href="{%url 'logout'%}">logout</a></p>
+  {%for obj in object_list%}
+        <h3>{{obj.id}}.{{obj.question}}</h3>
+        <input type="radio" name={{obj.id}} value="a">{{obj.option_a}}<br>
+        <input type="radio" name={{obj.id}} value="b">{{obj.option_b}}<br>
+        <input type="radio" name={{obj.id}} value="c">{{obj.option_c}}<br>
+        <input type="radio" name={{obj.id}} value="d">{{obj.option_d}}<br>
+        <input type="hidden" name="" value={{obj.answer}}><br>
+        <input type="submit" name="submit" value="submit" id="btntest">
+        {%endfor%}
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">login</a>
+{% endif %}
+
+
+{% endblock %}
